@@ -1,0 +1,23 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Build Philosophers",
+            "type": "shell",
+            "command": "gcc",
+            "args": [
+                "-g",
+                "src/main.c",
+                "src/parser.c",
+				"src/utils.c",
+                "-o",
+                "philo"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": ["$gcc"]
+        }
+    ]
+}

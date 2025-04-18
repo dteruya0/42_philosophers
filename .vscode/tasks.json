@@ -1,0 +1,30 @@
+{
+    "tasks": [
+        {
+            "type": "shell",
+            "label": "Build Philosophers",
+            "command": "/usr/bin/gcc",
+            "args": [
+                "-fdiagnostics-color=always",
+                "-g",
+                "src/main.c",
+                "src/parser.c",
+                "src/utils.c",
+                "-o",
+                "philo"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "detail": "Build all sources for Philosophers project"
+        }
+    ],
+    "version": "2.0.0"
+}

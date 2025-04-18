@@ -1,31 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   error_exit.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dteruya <dteruya@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/18 16:57:11 by dteruya           #+#    #+#             */
-/*   Updated: 2025/04/18 15:35:38 by dteruya          ###   ########.fr       */
+/*   Created: 2025/03/21 16:34:31 by dteruya           #+#    #+#             */
+/*   Updated: 2025/04/18 15:34:26 by dteruya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philosophers.h"
 
-int	main(int ac, char **av)
+void	error_exit(const char *error)
 {
-	t_data	data;
-	
-	if (ac == 5 || ac == 6)
-	{
-		if (!parse_args(ac, av))
-		{
-			init(&data, av);
-			
-			clean_up(&data);
-		}
-		else
-			printf(ARG);
-	}
-	return (0);
+	printf(R "%s\n" RST, error);
+	exit(EXIT_FAILURE);
+}
+
+void	clean_up(t_data *data)
+{
+	if (!data->philos && !data->forks)
+		return;
+	if (data->philos)
+		free(data->philos);
+	if (data->forks)
+		free(data->forks);
+	return;
 }
