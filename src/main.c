@@ -6,7 +6,7 @@
 /*   By: dteruya <dteruya@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 16:57:11 by dteruya           #+#    #+#             */
-/*   Updated: 2025/04/18 15:35:38 by dteruya          ###   ########.fr       */
+/*   Updated: 2025/04/23 13:16:41 by dteruya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,13 @@ int	main(int ac, char **av)
 		if (!parse_args(ac, av))
 		{
 			init(&data, av);
-			
+			simulation(&data);
 			clean_up(&data);
 		}
 		else
 			printf(ARG);
 	}
+	else
+		printf(ARG);
 	return (0);
 }

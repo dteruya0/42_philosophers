@@ -6,7 +6,7 @@
 /*   By: dteruya <dteruya@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 16:58:28 by dteruya           #+#    #+#             */
-/*   Updated: 2025/04/18 19:02:50 by dteruya          ###   ########.fr       */
+/*   Updated: 2025/04/23 13:17:11 by dteruya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,8 @@ typedef struct s_data
 typedef struct s_philo
 {
 	int			id;
-	int			last_meal;
 	int			meals_counter;
+	long		last_meal;
 	bool		state;
 	pthread_t	thread_id;
 	t_fork		*r_fork;
@@ -77,8 +77,12 @@ bool	parse_args(int ac, char **av);
 void	init(t_data *data, char **av);
 int		ft_atoi(const char *nptr);
 void	error_exit(const char *error);
-//long	get_time(t_data *data);
+long	get_time(t_data *data);
 void	clean_up(t_data *data);
 int		time_to_think(t_data *data);
+long	get_absolute_time(void);
+bool	philo_died(t_data *data);
+bool	philo_satiated(t_data *data);
+void	simulation(t_data *data);
 
 #endif

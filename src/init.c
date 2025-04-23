@@ -6,7 +6,7 @@
 /*   By: dteruya <dteruya@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 12:03:04 by dteruya           #+#    #+#             */
-/*   Updated: 2025/04/18 18:53:41 by dteruya          ###   ########.fr       */
+/*   Updated: 2025/04/23 15:09:03 by dteruya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,10 @@ static void	init_data(t_data *data, char **av)
 	data->time_to_die = ft_atoi(av[2]);
 	data->time_to_eat = ft_atoi(av[3]);
 	data->time_to_sleep = ft_atoi(av[4]);
-	data->time_to_think = time_to_think(&data);
-	data->must_eat = 0;
+	data->time_to_think = time_to_think(data);
+	data->must_eat = -1;
 	if (av[5])
 		data->must_eat = ft_atoi(av[5]);
-	data->start_simulation = 0;//get_time(data);
 	data->end_simulation = false;
 	pthread_mutex_init(&data->print_mtx, NULL);
 	pthread_mutex_init(&data->table_mtx, NULL);
@@ -68,7 +67,6 @@ void	init_philos(t_data *data)
 	while (i < data->num_philos)
 	{
 		data->philos[i].id = i + 1;
-		data->philos[i].last_meal = data->start_simulation;
 		data->philos[i].meals_counter = 0;
 		data->philos[i].state = false;
 		data->philos[i].r_fork = designate_fork(data, 'r');
