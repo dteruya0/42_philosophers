@@ -6,7 +6,7 @@
 /*   By: dteruya <dteruya@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 17:44:07 by dteruya           #+#    #+#             */
-/*   Updated: 2025/04/14 17:58:39 by dteruya          ###   ########.fr       */
+/*   Updated: 2025/04/24 13:30:40 by dteruya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,4 +59,21 @@ bool	parse_args(int ac, char **av)
 		i++;
 	}
 	return (flag);
+}
+
+void	error_exit(const char *error)
+{
+	printf(R "%s\n" RST, error);
+	exit(EXIT_FAILURE);
+}
+
+void	clean_up(t_data *data)
+{
+	if (!data->philos && !data->forks)
+		return;
+	if (data->philos)
+		free(data->philos);
+	if (data->forks)
+		free(data->forks);
+	return;
 }

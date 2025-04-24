@@ -6,7 +6,7 @@
 /*   By: dteruya <dteruya@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 16:58:28 by dteruya           #+#    #+#             */
-/*   Updated: 2025/04/23 13:17:11 by dteruya          ###   ########.fr       */
+/*   Updated: 2025/04/24 18:28:51 by dteruya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ typedef struct s_philo
 	long		last_meal;
 	bool		state;
 	pthread_t	thread_id;
+	t_mtx		status;
 	t_fork		*r_fork;
 	t_fork		*l_fork;
 	t_data		*data;
@@ -84,5 +85,9 @@ long	get_absolute_time(void);
 bool	philo_died(t_data *data);
 bool	philo_satiated(t_data *data);
 void	simulation(t_data *data);
+void	*eating(t_philo *philo);
+void	*sleeping(t_philo *philo);
+void	*thinking(t_philo *philo);
+void	*take_forks(t_philo *philo);
 
 #endif

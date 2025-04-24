@@ -6,7 +6,7 @@
 /*   By: dteruya <dteruya@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 11:51:43 by dteruya           #+#    #+#             */
-/*   Updated: 2025/04/23 15:03:50 by dteruya          ###   ########.fr       */
+/*   Updated: 2025/04/24 18:47:19 by dteruya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,21 +34,23 @@ long	get_time(t_data *data)
 
 bool	philo_died(t_data *data)
 {
-	int i;
-	
+	int		i;
+	long	curr;
+	long	last;
+
 	i = 0;
+	curr = get_absolute_time();
+	last = data->philos[i].last_meal;
 	while (i < data->num_philos)
 	{
-		pthread_mutex_lock(&data->table_mtx);
-		if (get_time(data) - data->philos[i].last_meal > data->time_to_die)
+		pthread_mutex_lock(&data->print_mtx);
+		if (curr - last > data->time_to_die)
 		{
-			pthread_mutex_lock(&data->print_mtx);
-			printf("%ld philo %i died\n", get_time(data), i + 1);
+			printf(R"%ld philo %i died\n"RST, get_time(data), i + 1);
 			pthread_mutex_unlock(&data->print_mtx);
-			pthread_mutex_unlock(&data->table_mtx);
 			return true;
 		}
-		pthread_mutex_unlock(&data->table_mtx);
+		pthread_mutex_unlock(&data->print_mtx);
 		i++;
 	}
 	return false;
@@ -69,6 +71,7 @@ bool	philo_satiated(t_data *data)
 		pthread_mutex_unlock(&data->table_mtx);
 		if (meals < data->must_eat)
 			return false;
+		data->philos[i].state = true;
 		i++;
 	}
 	return true;
