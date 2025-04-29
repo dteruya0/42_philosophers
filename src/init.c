@@ -6,7 +6,7 @@
 /*   By: dteruya <dteruya@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 12:03:04 by dteruya           #+#    #+#             */
-/*   Updated: 2025/04/29 16:10:24 by dteruya          ###   ########.fr       */
+/*   Updated: 2025/04/29 17:25:34 by dteruya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,10 @@ static void	init_forks(t_data *data)
 	i = 0;
 	data->forks = malloc(sizeof(t_fork) * data->num_philos);
 	if (!data->forks)
-		error_exit(MALLOC);
+	{
+		printf(MALLOC);
+		return ;
+	}
 	while (i < data->num_philos)
 	{
 		pthread_mutex_init(&data->forks[i].fork, NULL);
@@ -62,7 +65,10 @@ void	init_philos(t_data *data)
 	i = 0;
 	data->philos = malloc(sizeof(t_philo) * data->num_philos);
 	if (!data->philos)
-		error_exit(MALLOC);
+	{
+		printf(MALLOC);
+		return ;
+	}
 	while (i < data->num_philos)
 	{
 		data->philos[i].id = i + 1;

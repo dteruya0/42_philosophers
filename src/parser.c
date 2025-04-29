@@ -6,7 +6,7 @@
 /*   By: dteruya <dteruya@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 17:44:07 by dteruya           #+#    #+#             */
-/*   Updated: 2025/04/24 13:30:40 by dteruya          ###   ########.fr       */
+/*   Updated: 2025/04/29 17:20:02 by dteruya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,10 +61,12 @@ bool	parse_args(int ac, char **av)
 	return (flag);
 }
 
-void	error_exit(const char *error)
+void	print_msg(t_philo *philo, char *str)
 {
-	printf(R "%s\n" RST, error);
-	exit(EXIT_FAILURE);
+	pthread_mutex_lock(&philo->data->print_mtx);
+	if (end_cycle(philo->data))
+		printf("%lu philo %d %s\n", get_time(philo->data), philo->id, str);
+	pthread_mutex_unlock(&philo->data->print_mtx);
 }
 
 void	clean_up(t_data *data)

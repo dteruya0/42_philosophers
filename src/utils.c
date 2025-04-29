@@ -6,7 +6,7 @@
 /*   By: dteruya <dteruya@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 11:51:43 by dteruya           #+#    #+#             */
-/*   Updated: 2025/04/29 15:14:02 by dteruya          ###   ########.fr       */
+/*   Updated: 2025/04/29 16:44:16 by dteruya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ long	get_absolute_time(void)
 long	get_time(t_data *data)
 {
 	struct timeval	time;
-	long	current;
+	long			current;
 
 	gettimeofday(&time, NULL);
 	current = time.tv_sec * 1000 + time.tv_usec / 1000;
@@ -34,28 +34,27 @@ long	get_time(t_data *data)
 
 bool	philo_died(t_data *data)
 {
-	int	i;
-	int	n_philos;
-	int	die_time;
-	int	now;
+	int		i;
+	long	now_ms;
+	long	last_ms;
 
 	i = 0;
-	n_philos = data->num_philos;
-	die_time = data->time_to_die;
-	now = get_time(data);
-	while (i < n_philos)
+	while (i < data->num_philos)
 	{
+		now_ms = get_absolute_time();
 		pthread_mutex_lock(&data->table_mtx);
-		if (now - data->philos[i].last_meal > die_time)
+		last_ms = data->philos[i].last_meal;
+		pthread_mutex_unlock(&data->table_mtx);
+		if (now_ms - last_ms >= data->time_to_die)
 		{
 			pthread_mutex_lock(&data->print_mtx);
-			printf(R"%lu philo %i died\n"RST, get_time(data), data->philos[i].id);
+			printf(R"%ld philo %d died\n"RST, get_time(data), data->philos[i].id);
 			pthread_mutex_unlock(&data->print_mtx);
+			pthread_mutex_lock(&data->monitor_mtx);
 			data->end_simulation = true;
-			pthread_mutex_unlock(&data->table_mtx);
+			pthread_mutex_unlock(&data->monitor_mtx);
 			return (true);
 		}
-		pthread_mutex_unlock(&data->table_mtx);
 		i++;
 	}
 	return (false);

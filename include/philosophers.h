@@ -6,7 +6,7 @@
 /*   By: dteruya <dteruya@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 16:58:28 by dteruya           #+#    #+#             */
-/*   Updated: 2025/04/29 15:23:03 by dteruya          ###   ########.fr       */
+/*   Updated: 2025/04/29 17:10:32 by dteruya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,6 @@ typedef struct s_philo
 bool	parse_args(int ac, char **av);
 void	init(t_data *data, char **av);
 int		ft_atoi(const char *nptr);
-void	error_exit(const char *error);
 long	get_time(t_data *data);
 void	clean_up(t_data *data);
 int		time_to_think(t_data *data);
@@ -87,5 +86,6 @@ void	*sleeping(t_philo *philo);
 void	*thinking(t_philo *philo);
 void	*take_forks(t_philo *philo);
 bool	end_cycle(t_data *data);
+void	print_msg(t_philo *philo, char *str);
 
 #endif
