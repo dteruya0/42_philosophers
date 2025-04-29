@@ -6,7 +6,7 @@
 /*   By: dteruya <dteruya@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 11:51:43 by dteruya           #+#    #+#             */
-/*   Updated: 2025/04/24 18:47:19 by dteruya          ###   ########.fr       */
+/*   Updated: 2025/04/29 15:14:02 by dteruya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,26 +34,31 @@ long	get_time(t_data *data)
 
 bool	philo_died(t_data *data)
 {
-	int		i;
-	long	curr;
-	long	last;
+	int	i;
+	int	n_philos;
+	int	die_time;
+	int	now;
 
 	i = 0;
-	curr = get_absolute_time();
-	last = data->philos[i].last_meal;
-	while (i < data->num_philos)
+	n_philos = data->num_philos;
+	die_time = data->time_to_die;
+	now = get_time(data);
+	while (i < n_philos)
 	{
-		pthread_mutex_lock(&data->print_mtx);
-		if (curr - last > data->time_to_die)
+		pthread_mutex_lock(&data->table_mtx);
+		if (now - data->philos[i].last_meal > die_time)
 		{
-			printf(R"%ld philo %i died\n"RST, get_time(data), i + 1);
+			pthread_mutex_lock(&data->print_mtx);
+			printf(R"%lu philo %i died\n"RST, get_time(data), data->philos[i].id);
 			pthread_mutex_unlock(&data->print_mtx);
-			return true;
+			data->end_simulation = true;
+			pthread_mutex_unlock(&data->table_mtx);
+			return (true);
 		}
-		pthread_mutex_unlock(&data->print_mtx);
+		pthread_mutex_unlock(&data->table_mtx);
 		i++;
 	}
-	return false;
+	return (false);
 }
 
 bool	philo_satiated(t_data *data)
@@ -71,7 +76,6 @@ bool	philo_satiated(t_data *data)
 		pthread_mutex_unlock(&data->table_mtx);
 		if (meals < data->must_eat)
 			return false;
-		data->philos[i].state = true;
 		i++;
 	}
 	return true;

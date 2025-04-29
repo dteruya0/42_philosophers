@@ -6,7 +6,7 @@
 /*   By: dteruya <dteruya@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 16:58:28 by dteruya           #+#    #+#             */
-/*   Updated: 2025/04/24 18:28:51 by dteruya          ###   ########.fr       */
+/*   Updated: 2025/04/29 15:23:03 by dteruya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,17 +21,14 @@
 # include <stdbool.h>
 # include <sys/time.h>
 
-// Reset
 # define RST	"\033[0m"
 
-// Cores básicas
 # define R	"\033[0;31m"
 # define G	"\033[0;32m"
 # define Y	"\033[0;33m"
 # define B	"\033[0;34m"
 # define W	"\033[0;37m"
 
-//define macros
 # define ARG "Error: Incorrect arguments\n"
 # define MALLOC "Error: Malloc error\n"
 
@@ -57,6 +54,7 @@ typedef struct s_data
 	pthread_t	monitor;
 	t_mtx		print_mtx;
 	t_mtx		table_mtx;
+	t_mtx		monitor_mtx;
 	t_fork		*forks;
 	t_philo		*philos;
 }	t_data;
@@ -68,7 +66,6 @@ typedef struct s_philo
 	long		last_meal;
 	bool		state;
 	pthread_t	thread_id;
-	t_mtx		status;
 	t_fork		*r_fork;
 	t_fork		*l_fork;
 	t_data		*data;
@@ -89,5 +86,6 @@ void	*eating(t_philo *philo);
 void	*sleeping(t_philo *philo);
 void	*thinking(t_philo *philo);
 void	*take_forks(t_philo *philo);
+bool	end_cycle(t_data *data);
 
 #endif

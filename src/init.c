@@ -6,7 +6,7 @@
 /*   By: dteruya <dteruya@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 12:03:04 by dteruya           #+#    #+#             */
-/*   Updated: 2025/04/24 11:48:12 by dteruya          ###   ########.fr       */
+/*   Updated: 2025/04/29 16:10:24 by dteruya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ static void	init_data(t_data *data, char **av)
 	data->end_simulation = false;
 	pthread_mutex_init(&data->print_mtx, NULL);
 	pthread_mutex_init(&data->table_mtx, NULL);
+	pthread_mutex_init(&data->monitor_mtx, NULL);
 }
 
 static void	init_forks(t_data *data)
@@ -61,9 +62,7 @@ void	init_philos(t_data *data)
 	i = 0;
 	data->philos = malloc(sizeof(t_philo) * data->num_philos);
 	if (!data->philos)
-	{
 		error_exit(MALLOC);
-	}
 	while (i < data->num_philos)
 	{
 		data->philos[i].id = i + 1;
