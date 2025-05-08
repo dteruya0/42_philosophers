@@ -6,13 +6,13 @@
 /*   By: dteruya <dteruya@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/18 16:30:46 by dteruya           #+#    #+#             */
-/*   Updated: 2025/05/08 14:36:40 by dteruya          ###   ########.fr       */
+/*   Updated: 2025/05/08 14:51:15 by dteruya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philosophers.h"
 
-void	*monitoring(void *arg)
+static void	*monitoring(void *arg)
 {
 	t_data	*data;
 
@@ -33,7 +33,7 @@ void	*monitoring(void *arg)
 	return (NULL);
 }
 
-void	*routine(void *arg)
+static void	*routine(void *arg)
 {
 	t_philo	*philo;
 	t_data	*data;

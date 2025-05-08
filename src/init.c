@@ -6,7 +6,7 @@
 /*   By: dteruya <dteruya@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 12:03:04 by dteruya           #+#    #+#             */
-/*   Updated: 2025/05/08 11:31:10 by dteruya          ###   ########.fr       */
+/*   Updated: 2025/05/08 14:43:05 by dteruya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static void	init_forks(t_data *data)
 	}
 }
 
-void	init_philos(t_data *data)
+static void	init_philos(t_data *data)
 {
 	int		i;
 

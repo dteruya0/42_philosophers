@@ -6,7 +6,7 @@
 /*   By: dteruya <dteruya@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 16:58:28 by dteruya           #+#    #+#             */
-/*   Updated: 2025/05/08 14:32:01 by dteruya          ###   ########.fr       */
+/*   Updated: 2025/05/08 14:50:50 by dteruya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,23 +71,32 @@ typedef struct s_philo
 	t_data		*data;
 }	t_philo;
 
-bool	parse_args(int ac, char **av);
+//---------------INIT.C---------------
 void	init(t_data *data, char **av);
+
+//--------------PARSER.C---------------
 int		ft_atoi(const char *nptr);
-long	get_time(t_data *data);
+bool	parse_args(int ac, char **av);
+void	print_msg(t_philo *philo, char *str);
 void	clean_up(t_data *data);
-int		time_to_think(t_data *data);
+
+//--------------UTILS.C---------------
 long	get_absolute_time(void);
+long	get_time(t_data *data);
 bool	philo_died(t_data *data);
 bool	philo_satiated(t_data *data);
-void	simulation(t_data *data);
+int		time_to_think(t_data *data);
+
+//-------------ROUTINE.C--------------
 void	eating(t_philo *philo);
-int		take_forks(t_philo *philo);
-void	drop_forks(t_philo *philo);
 void	sleeping(t_philo *philo);
 void	thinking(t_philo *philo);
+int		take_forks(t_philo *philo);
+void	drop_forks(t_philo *philo);
+
+//------------SIMULATION.C------------
+void	simulation(t_data *data);
 bool	end_cycle(t_data *data);
-void	print_msg(t_philo *philo, char *str);
 int		lock_fork(t_data *data, pthread_mutex_t *fork);
 
 #endif
