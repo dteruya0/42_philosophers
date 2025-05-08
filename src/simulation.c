@@ -6,7 +6,7 @@
 /*   By: dteruya <dteruya@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/18 16:30:46 by dteruya           #+#    #+#             */
-/*   Updated: 2025/05/08 14:51:15 by dteruya          ###   ########.fr       */
+/*   Updated: 2025/05/08 14:57:08 by dteruya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,17 +86,6 @@ void	simulation(t_data *data)
 	i = 0;
 	while (i < data->num_philos)
 		pthread_join(data->philos[i++].thread_id, NULL);
-}
-
-int	lock_fork(t_data *data, pthread_mutex_t *fork)
-{
-	pthread_mutex_lock(fork);
-	if (!end_cycle(data))
-	{
-		pthread_mutex_unlock(fork);
-		return (0);
-	}
-	return (1);
 }
 
 bool	end_cycle(t_data *data)

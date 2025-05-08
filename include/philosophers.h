@@ -6,7 +6,7 @@
 /*   By: dteruya <dteruya@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 16:58:28 by dteruya           #+#    #+#             */
-/*   Updated: 2025/05/08 14:50:50 by dteruya          ###   ########.fr       */
+/*   Updated: 2025/05/08 14:59:51 by dteruya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,6 @@ void	init(t_data *data, char **av);
 int		ft_atoi(const char *nptr);
 bool	parse_args(int ac, char **av);
 void	print_msg(t_philo *philo, char *str);
-void	clean_up(t_data *data);
 
 //--------------UTILS.C---------------
 long	get_absolute_time(void);
@@ -91,12 +90,14 @@ int		time_to_think(t_data *data);
 void	eating(t_philo *philo);
 void	sleeping(t_philo *philo);
 void	thinking(t_philo *philo);
-int		take_forks(t_philo *philo);
-void	drop_forks(t_philo *philo);
 
 //------------SIMULATION.C------------
 void	simulation(t_data *data);
 bool	end_cycle(t_data *data);
+
+//--------------FORKS.C----------------
+int		take_forks(t_philo *philo);
+void	drop_forks(t_philo *philo);
 int		lock_fork(t_data *data, pthread_mutex_t *fork);
 
 #endif

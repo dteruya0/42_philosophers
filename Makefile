@@ -6,7 +6,7 @@
 #    By: dteruya <dteruya@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/18 17:05:53 by dteruya           #+#    #+#              #
-#    Updated: 2025/04/29 11:02:44 by dteruya          ###   ########.fr        #
+#    Updated: 2025/05/08 14:56:37 by dteruya          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ OBJ_DIR = obj
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
 
-SRCS = main.c parser.c init.c utils.c simulation.c routine.c\
+SRCS = main.c parser.c init.c utils.c simulation.c routine.c forks.c\
 
 OBJ = $(SRCS:.c=.o)
 
