@@ -6,7 +6,7 @@
 /*   By: dteruya <dteruya@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 16:58:28 by dteruya           #+#    #+#             */
-/*   Updated: 2025/04/29 17:10:32 by dteruya          ###   ########.fr       */
+/*   Updated: 2025/05/08 11:37:52 by dteruya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@
 # define MALLOC "Error: Malloc error\n"
 
 typedef pthread_mutex_t	t_mtx;
-typedef struct s_philo t_philo;
+typedef struct s_philo	t_philo;
 
 typedef struct s_fork
 {
@@ -79,13 +79,15 @@ void	clean_up(t_data *data);
 int		time_to_think(t_data *data);
 long	get_absolute_time(void);
 bool	philo_died(t_data *data);
-bool	philo_satiated(t_data *data);
+bool	levou_as_comidas(t_data *data);
 void	simulation(t_data *data);
-void	*eating(t_philo *philo);
-void	*sleeping(t_philo *philo);
-void	*thinking(t_philo *philo);
-void	*take_forks(t_philo *philo);
+void	eating(t_philo *philo);
+int		take_forks(t_philo *philo);
+void	drop_forks(t_philo *philo);
+void	sleeping(t_philo *philo);
+void	thinking(t_philo *philo);
 bool	end_cycle(t_data *data);
 void	print_msg(t_philo *philo, char *str);
+int		lock_fork(t_data *data, pthread_mutex_t *fork);
 
 #endif

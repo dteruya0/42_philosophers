@@ -6,7 +6,7 @@
 /*   By: dteruya <dteruya@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 17:44:07 by dteruya           #+#    #+#             */
-/*   Updated: 2025/04/29 17:20:02 by dteruya          ###   ########.fr       */
+/*   Updated: 2025/05/08 11:31:35 by dteruya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,10 +72,10 @@ void	print_msg(t_philo *philo, char *str)
 void	clean_up(t_data *data)
 {
 	if (!data->philos && !data->forks)
-		return;
+		return ;
 	if (data->philos)
 		free(data->philos);
 	if (data->forks)
 		free(data->forks);
-	return;
+	return ;
 }

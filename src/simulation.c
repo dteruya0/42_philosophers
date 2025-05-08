@@ -6,7 +6,7 @@
 /*   By: dteruya <dteruya@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/18 16:30:46 by dteruya           #+#    #+#             */
-/*   Updated: 2025/04/29 17:23:01 by dteruya          ###   ########.fr       */
+/*   Updated: 2025/05/08 11:37:07 by dteruya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	*monitoring(void *arg)
 	{
 		if (philo_died(data))
 			break ;
-		if (philo_satiated(data))
+		if (levou_as_comidas(data))
 		{
 			pthread_mutex_lock(&data->monitor_mtx);
 			data->end_simulation = true;
@@ -36,19 +36,23 @@ void	*monitoring(void *arg)
 void	*routine(void *arg)
 {
 	t_philo	*philo;
+	t_data	*data;
 
 	philo = (t_philo *)arg;
-	while (end_cycle(philo->data))
+	data = philo->data;
+	while (end_cycle(data))
 	{
-		if (philo->data->num_philos == 1)
+		if (data->num_philos == 1)
 		{
-			printf("%ld philo %d has taken a fork\n", get_time(philo->data), philo->id);
-			usleep(philo->data->time_to_die * 1000);
+			printf("%ld philo %d has taken a fork\n", get_time(data), philo->id);
+			usleep(data->time_to_die * 1000);
 			return (NULL);
 		}
-		if(end_cycle(philo->data))
+		if (end_cycle(data))
 		{
+			take_forks(philo);
 			eating(philo);
+			drop_forks(philo);
 			sleeping(philo);
 			thinking(philo);
 		}
@@ -73,7 +77,8 @@ void	simulation(t_data *data)
 	i = 0;
 	while (i < data->num_philos)
 	{
-		pthread_create(&data->philos[i].thread_id, NULL, routine, &data->philos[i]);
+		pthread_create(&data->philos[i].thread_id,
+			NULL, routine, &data->philos[i]);
 		i++;
 	}
 	pthread_join(data->monitor, NULL);
@@ -82,24 +87,15 @@ void	simulation(t_data *data)
 		pthread_join(data->philos[i++].thread_id, NULL);
 }
 
-void	*take_forks(t_philo *philo)
+int	lock_fork(t_data *data, pthread_mutex_t *fork)
 {
-	if (philo->id % 2 == 0)
+	pthread_mutex_lock(fork);
+	if (!end_cycle(data))
 	{
-		pthread_mutex_lock(&philo->r_fork->fork);
-		print_msg(philo, "has taken a fork");
-		pthread_mutex_lock(&philo->l_fork->fork);
-		print_msg(philo, "has taken a fork");
-
+		pthread_mutex_unlock(fork);
+		return (0);
 	}
-	else
-	{
-		pthread_mutex_lock(&philo->l_fork->fork);
-		print_msg(philo, "has taken a fork");
-		pthread_mutex_lock(&philo->r_fork->fork);
-		print_msg(philo, "has taken a fork");
-	}
-	return (NULL);
+	return (1);
 }
 
 bool	end_cycle(t_data *data)

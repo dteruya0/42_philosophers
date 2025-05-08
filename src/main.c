@@ -6,7 +6,7 @@
 /*   By: dteruya <dteruya@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 16:57:11 by dteruya           #+#    #+#             */
-/*   Updated: 2025/04/23 13:16:41 by dteruya          ###   ########.fr       */
+/*   Updated: 2025/05/08 11:31:25 by dteruya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	main(int ac, char **av)
 {
 	t_data	data;
-	
+
 	if (ac == 5 || ac == 6)
 	{
 		if (!parse_args(ac, av))

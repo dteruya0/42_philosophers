@@ -6,7 +6,7 @@
 /*   By: dteruya <dteruya@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 11:51:43 by dteruya           #+#    #+#             */
-/*   Updated: 2025/04/29 16:44:16 by dteruya          ###   ########.fr       */
+/*   Updated: 2025/05/08 11:51:23 by dteruya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 long	get_absolute_time(void)
 {
 	struct timeval	time;
-	long	current;
+	long			current;
 
 	gettimeofday(&time, NULL);
 	current = time.tv_sec * 1000 + time.tv_usec / 1000;
@@ -48,7 +48,8 @@ bool	philo_died(t_data *data)
 		if (now_ms - last_ms >= data->time_to_die)
 		{
 			pthread_mutex_lock(&data->print_mtx);
-			printf(R"%ld philo %d died\n"RST, get_time(data), data->philos[i].id);
+			printf(R"%ld philo %d died\n"RST,
+				get_time(data), data->philos[i].id);
 			pthread_mutex_unlock(&data->print_mtx);
 			pthread_mutex_lock(&data->monitor_mtx);
 			data->end_simulation = true;
@@ -60,24 +61,24 @@ bool	philo_died(t_data *data)
 	return (false);
 }
 
-bool	philo_satiated(t_data *data)
+bool	levou_as_comidas(t_data *data)
 {
 	int	i;
 	int	meals;
 
 	i = 0;
 	if (data->must_eat < 0)
-		return false;
+		return (false);
 	while (i < data->num_philos)
 	{
 		pthread_mutex_lock(&data->table_mtx);
 		meals = data->philos[i].meals_counter;
 		pthread_mutex_unlock(&data->table_mtx);
 		if (meals < data->must_eat)
-			return false;
+			return (false);
 		i++;
 	}
-	return true;
+	return (true);
 }
 
 int	time_to_think(t_data *data)

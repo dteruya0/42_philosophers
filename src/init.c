@@ -6,7 +6,7 @@
 /*   By: dteruya <dteruya@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 12:03:04 by dteruya           #+#    #+#             */
-/*   Updated: 2025/04/29 17:25:34 by dteruya          ###   ########.fr       */
+/*   Updated: 2025/05/08 11:31:10 by dteruya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ static void	init_data(t_data *data, char **av)
 	data->must_eat = -1;
 	if (av[5])
 		data->must_eat = ft_atoi(av[5]);
+	data->start_simulation = get_absolute_time();
 	data->end_simulation = false;
 	pthread_mutex_init(&data->print_mtx, NULL);
 	pthread_mutex_init(&data->table_mtx, NULL);
@@ -35,27 +36,13 @@ static void	init_forks(t_data *data)
 	i = 0;
 	data->forks = malloc(sizeof(t_fork) * data->num_philos);
 	if (!data->forks)
-	{
 		printf(MALLOC);
-		return ;
-	}
 	while (i < data->num_philos)
 	{
 		pthread_mutex_init(&data->forks[i].fork, NULL);
 		data->forks[i].id = i + 1;
 		i++;
 	}
-}
-
-static t_fork	*designate_fork(t_data *data, char side)
-{
-	int	fork_id;
-
-	if (side == 'r')
-		fork_id = data->philos->id;
-	else
-		fork_id = data->philos->id + 1 % data->num_philos;
-	return (&data->forks[fork_id]);
 }
 
 void	init_philos(t_data *data)
@@ -74,8 +61,8 @@ void	init_philos(t_data *data)
 		data->philos[i].id = i + 1;
 		data->philos[i].meals_counter = 0;
 		data->philos[i].state = false;
-		data->philos[i].r_fork = designate_fork(data, 'r');
-		data->philos[i].l_fork = designate_fork(data, 'l');
+		data->philos[i].r_fork = &data->forks[i];
+		data->philos[i].l_fork = &data->forks[(i + 1) % data->num_philos];
 		data->philos[i].data = data;
 		i++;
 	}
