@@ -6,7 +6,7 @@
 /*   By: dteruya <dteruya@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 11:51:43 by dteruya           #+#    #+#             */
-/*   Updated: 2025/05/08 11:51:23 by dteruya          ###   ########.fr       */
+/*   Updated: 2025/05/08 14:31:42 by dteruya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ bool	philo_died(t_data *data)
 	return (false);
 }
 
-bool	levou_as_comidas(t_data *data)
+bool	philo_satiated(t_data *data)
 {
 	int	i;
 	int	meals;

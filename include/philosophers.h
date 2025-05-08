@@ -6,7 +6,7 @@
 /*   By: dteruya <dteruya@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 16:58:28 by dteruya           #+#    #+#             */
-/*   Updated: 2025/05/08 11:37:52 by dteruya          ###   ########.fr       */
+/*   Updated: 2025/05/08 14:32:01 by dteruya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ void	clean_up(t_data *data);
 int		time_to_think(t_data *data);
 long	get_absolute_time(void);
 bool	philo_died(t_data *data);
-bool	levou_as_comidas(t_data *data);
+bool	philo_satiated(t_data *data);
 void	simulation(t_data *data);
 void	eating(t_philo *philo);
 int		take_forks(t_philo *philo);

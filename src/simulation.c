@@ -6,7 +6,7 @@
 /*   By: dteruya <dteruya@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/18 16:30:46 by dteruya           #+#    #+#             */
-/*   Updated: 2025/05/08 11:37:07 by dteruya          ###   ########.fr       */
+/*   Updated: 2025/05/08 14:36:40 by dteruya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	*monitoring(void *arg)
 	{
 		if (philo_died(data))
 			break ;
-		if (levou_as_comidas(data))
+		if (philo_satiated(data))
 		{
 			pthread_mutex_lock(&data->monitor_mtx);
 			data->end_simulation = true;
@@ -50,7 +50,8 @@ void	*routine(void *arg)
 		}
 		if (end_cycle(data))
 		{
-			take_forks(philo);
+			if (!take_forks(philo))
+				return (NULL);
 			eating(philo);
 			drop_forks(philo);
 			sleeping(philo);
